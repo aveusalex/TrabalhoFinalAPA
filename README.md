@@ -4,7 +4,9 @@ Trabalho final da disciplina de Análise e Projeto de Algoritmos. Oferta para o 
 
 Consiste em resolver um problema da URI (Beecrowd) que envolva programação dinâmica.  
 
-Selecionamos o problema 1970 - Primeiro Contato - para trabalharmos. https://www.beecrowd.com.br/judge/pt/problems/view/1970
+Selecionamos o problema 1970 - Primeiro Contato - para trabalharmos. 
+
+https://www.beecrowd.com.br/judge/pt/problems/view/1970
 
 Foi desenvolvido uma versão recursiva da solução e outra não-recursiva em C e em Python (apenas recursiva).
 
