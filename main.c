@@ -32,6 +32,7 @@ int main() {
     // início da programação dinâmica.
     while (j != maximo(sizeCartuchos[0], maximo(sizeCartuchos[1], sizeCartuchos[2])) + 1){
         for (int i = 1; i <= N; i++) {
+            printf(" Coluna %d, linha %d, elem %d ::", j, i, duracaoMusicas[i]);
             // Se a música de duração "duracaoMusicas[i]" couber no cartucho de tamanho "j"...
             if (duracaoMusicas[i] <= j) {
                 // Se a soma da duração da música atual com a música do cartucho "j - duração atual" for maior que
@@ -46,8 +47,19 @@ int main() {
             // senão, o elemento "tabela_PD[i][j]" recebe o valor anterior do mesmo cartucho.
             } else tabela_PD[i][j] = tabela_PD[i - 1][j];
         }
+        printf("\n");
         j += 1;
     }
+
+    // auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar
+    printf("\n\n\n");
+    for (int c = 0; c < maximo(sizeCartuchos[0], maximo(sizeCartuchos[1], sizeCartuchos[2])) + 1; c++){
+        for (int c2 = 0; c2 < N; c2++){
+            printf("%d  ", tabela_PD[c][c2]);
+        }
+        printf("\n");
+    }
+    // auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar
 
     // Iterar pelo tamanho dos cartuchos e recuperar a informacão correspondente na tabela (elemento N(maior valor da
     // linha) e sizeCartuchos(maior valor da coluna para cada cartucho).
