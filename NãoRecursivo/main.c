@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#define MAX 100
+#define MAX 105
 
 // Função máximo auxiliar. Determina o maior valor em um par de inteiros.
 int maximo(int num1, int num2){
@@ -14,7 +14,7 @@ int maximo(int num1, int num2){
 
 int main() {
     int K = 0, N = 0, duracaoMusicas[MAX];  // declarando variável quantidade de cartuchos e músicas e lista de durações.
-    int tabela_PD[MAX][50];  // Cria uma tabela genérica de tamanho máximo baseado no valor máximo das entradas.
+    int tabela_PD[MAX][55];  // Cria uma tabela genérica de tamanho máximo baseado no valor máximo das entradas.
     int sizeCartuchos[] = {0, 0, 0};  // inicializando a lista referente à capacidade dos cartuchos.
     int j = 0;  // declarando os índices da tabela, i: linha, j: tabela.
     int resultado = 0;
@@ -51,12 +51,19 @@ int main() {
 
     // auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar
     printf("\n\n\n");
-    for (int c = 0; c < maximo(sizeCartuchos[0], maximo(sizeCartuchos[1], sizeCartuchos[2])) + 1; c++){
-        for (int c2 = 0; c2 < N; c2++){
-            printf("%d  ", tabela_PD[c2][c]);
+    printf("\t\t  ");
+    for (int c = 0; c < maximo(sizeCartuchos[0], maximo(sizeCartuchos[1], sizeCartuchos[2])) + 1; c++) {
+        printf("%d \t", c);
+    }
+    printf("\n\n");
+    for (int c2 = 0; c2 <= N; c2++){
+        printf("%2d: \t\t", c2);
+        for (int c = 0; c < maximo(sizeCartuchos[0], maximo(sizeCartuchos[1], sizeCartuchos[2])) + 1; c++){
+            printf("%d \t", tabela_PD[c2][c]);
         }
         printf("\n");
     }
+    printf("\n");
     // auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar
 
     // Iterar pelo tamanho dos cartuchos e recuperar a informacão correspondente na tabela (elemento N(maior valor da
