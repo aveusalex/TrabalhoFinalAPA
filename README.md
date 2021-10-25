@@ -8,6 +8,6 @@ Selecionamos o problema 1970 - Primeiro Contato - para trabalharmos.
 
 https://www.beecrowd.com.br/judge/pt/problems/view/1970
 
-Foi desenvolvido uma versão recursiva da solução e outra não-recursiva em C e em Python (apenas recursiva).
+Foi desenvolvido uma versão recursiva da solução e outra não-recursiva em C. Em python há apenas a versão recursiva.
 
 A intenção da implementação em Python é facilitar o entendimento do conceito da Programação dinâmica, pois remove as abstrações baixo nível do C.
