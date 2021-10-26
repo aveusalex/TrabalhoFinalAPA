@@ -12,12 +12,46 @@ int maximo(int num1, int num2){
     }
 }
 
+// função para remover as músicas que já foram inseridas no cartucho que acabou de rodar.
+int removeMusicas(int *musComponentes[], int duracaoMusicas[], int N, int qtdColocadas){
+    for (int cont1 =0;  cont1 <= qtdColocadas; cont1++){
+        for (int cont2 = 0; cont2 <= N; cont2++){
+            if (jaColocadas[cont1] == duracaoMusicas[cont2]){
+                for (int cont3 = cont1; cont3 <= N-1; cont3++){
+                    duracaoMusicas[cont3] = duracaoMusicas[cont3+1];
+                }
+            }
+        }
+
+    }
+}
+
+// função para verificar quais musicas compõem o cartucho.
+int verificaCartucho(int tabela_PD[3][MAX][55], int sizeCartucho, int N, int cartucho){
+    int aux, counter = 0;
+    int musicasComponentes[50];
+
+    for (int i = N; i > 0; i--){
+        aux = tabela_PD[cartucho][i - 1][sizeCartucho];
+        // se houve alteração no valor ótimo da mochila, devemos mapear se o valor foi herdado ou somado com o item atual.
+        if (tabela_PD[cartucho][i][sizeCartucho] != aux){
+            musicasComponentes[counter] = i;
+            sizeCartucho = tabela_PD[cartucho][i][sizeCartucho];
+            counter += 1;
+        }
+
+    }
+    musicasComponentes[counter] = -1;
+    return *musicasComponentes;
+}
+
 int main() {
     int K = 0, N = 0, duracaoMusicas[MAX];  // declarando variável quantidade de cartuchos e músicas e lista de durações.
-    int tabela_PD[MAX][55];  // Cria uma tabela genérica de tamanho máximo baseado no valor máximo das entradas.
+    int tabela_PD[3][MAX][55];  // Cria uma tabela genérica de tamanho máximo baseado no valor máximo das entradas.
     int sizeCartuchos[] = {0, 0, 0};  // inicializando a lista referente à capacidade dos cartuchos.
-    int j = 0;  // declarando os índices da tabela, i: linha, j: tabela.
-    int resultado = 0;
+    int j = 0;  // declarando o índice j (coluna) da tabela.
+    int resultado = 0, *musicasComponentes;
+    int qtdColocadas;
 
     scanf("%d %d", &N, &K);  // escaneando o N (numero de musicas) e o K (numero de cartuchos)
     for (int c1 = 1; c1 <= N; c1++){
@@ -30,23 +64,29 @@ int main() {
     memset(tabela_PD, 0, sizeof(tabela_PD));  // preenchendo com zeros a tabela.
 
     // início da programação dinâmica.
-    while (j != maximo(sizeCartuchos[0], maximo(sizeCartuchos[1], sizeCartuchos[2])) + 1){
-        for (int i = 1; i <= N; i++) {
-            // Se a música de duração "duracaoMusicas[i]" couber no cartucho de tamanho "j"...
-            if (duracaoMusicas[i] <= j) {
-                // Se a soma da duração da música atual com a música do cartucho "j - duração atual" for maior que
-                // o elemento da linha superior do mesmo cartucho...
-                if (tabela_PD[i - 1][j - duracaoMusicas[i]] + duracaoMusicas[i] > tabela_PD[i - 1][j]) {
-                    // Então o elemento "tabela_PD[i][j]" recebe a soma mencionada.
-                    tabela_PD[i][j] = tabela_PD[i - 1][j - duracaoMusicas[i]] + duracaoMusicas[i];
+    for (int cartucho = 0; cartucho < K; cartucho++) {
+        // percorremos a tabela de forma top-down, ou seja, de cima para baixo por coluna.
+        while (j != sizeCartuchos[cartucho] + 1) {
+            for (int i = 1; i <= N; i++) {
+                // Se a música de duração "duracaoMusicas[i]" couber no cartucho de tamanho "j"...
+                if (duracaoMusicas[i] <= j) {
+                    // Se a soma da duração da música atual com a música do cartucho "j - duração atual" for maior que
+                    // o elemento da linha superior do mesmo cartucho...
+                    if (tabela_PD[cartucho][i - 1][j - duracaoMusicas[i]] + duracaoMusicas[i] > tabela_PD[cartucho][i - 1][j]) {
+                        // Então o elemento "tabela_PD[i][j]" recebe a soma mencionada.
+                        tabela_PD[cartucho][i][j] = tabela_PD[cartucho][i - 1][j - duracaoMusicas[i]] + duracaoMusicas[i];
 
-                // senão, o elemento "tabela_PD[i][j]" recebe o valor anterior do mesmo cartucho.
-                } else tabela_PD[i][j] = tabela_PD[i - 1][j];
+                        // senão, o elemento "tabela_PD[i][j]" recebe o valor anterior do mesmo cartucho.
+                    } else tabela_PD[cartucho][i][j] = tabela_PD[cartucho][i - 1][j];
 
-            // senão, o elemento "tabela_PD[i][j]" recebe o valor anterior do mesmo cartucho.
-            } else tabela_PD[i][j] = tabela_PD[i - 1][j];
+                    // senão, o elemento "tabela_PD[i][j]" recebe o valor anterior do mesmo cartucho.
+                } else tabela_PD[cartucho][i][j] = tabela_PD[cartucho][i - 1][j];
+            }
+            j += 1;
         }
-        j += 1;
+        // chamada de função para remover as músicas que já foram inseridas no cartucho que acabou de rodar.
+        *musicasComponentes = verificaCartucho(tabela_PD, sizeCartuchos[cartucho], N, cartucho);
+
     }
 
     // auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar auxiliar
