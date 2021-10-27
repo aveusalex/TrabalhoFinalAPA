@@ -176,7 +176,20 @@ int main(){
             N_copia = N;
             copiaLista(&sizeCartuchos, &sizeCartuchos_copia, K_copia, 0);
             copiaLista(&duracaoMusicas, &duracaoMusicas_copia, N_copia, 1);
-            resultados[i] = pd(K_copia, N_copia, &sizeCartuchos_copia, &duracaoMusicas_copia);
+
+            if (i == 0){
+                resultados[i] = pd(K_copia, N_copia, &sizeCartuchos_copia, &duracaoMusicas_copia);
+            }
+
+            if (i==1){
+                // faz a troca de posicao dos cartuchos
+                int aux;
+                aux = sizeCartuchos_copia[0];
+                sizeCartuchos_copia[0] = sizeCartuchos_copia[1];
+                sizeCartuchos_copia[1] = aux;
+
+                resultados[i] = pd(K_copia, N_copia, &sizeCartuchos_copia, &duracaoMusicas_copia);
+            }
         }
         if (resultados[0] > resultados[1]) printf("%d\n", resultados[0]);
         else printf("%d\n", resultados[1]);
@@ -189,8 +202,61 @@ int main(){
             N_copia = N;
             copiaLista(&sizeCartuchos, &sizeCartuchos_copia, K_copia, 0);
             copiaLista(&duracaoMusicas, &duracaoMusicas_copia, N_copia, 1);
-            resultados[i] = pd(K_copia, N_copia, &sizeCartuchos_copia, &duracaoMusicas_copia);
+
+            if (i == 0){
+                resultados[i] = pd(K_copia, N_copia, &sizeCartuchos_copia, &duracaoMusicas_copia);
+            }
+
+            if (i == 1){
+                // faz a combinacao ACB
+                int aux;
+                aux = sizeCartuchos_copia[1];
+                sizeCartuchos_copia[1] = sizeCartuchos_copia[2];
+                sizeCartuchos_copia[2] = aux;
+                resultados[i] = pd(K_copia, N_copia, &sizeCartuchos_copia, &duracaoMusicas_copia);
+            }
+
+            if (i == 2){
+                // faz a combinacao BAC
+                int aux;
+                aux = sizeCartuchos_copia[0];
+                sizeCartuchos_copia[0] = sizeCartuchos_copia[1];
+                sizeCartuchos_copia[1] = aux;
+                resultados[i] = pd(K_copia, N_copia, &sizeCartuchos_copia, &duracaoMusicas_copia);
+            }
+
+            if (i == 3){
+                // faz a combinacao BCA
+                int aux;
+                aux = sizeCartuchos_copia[1];
+                sizeCartuchos_copia[1] = sizeCartuchos_copia[2];
+                sizeCartuchos_copia[2] = sizeCartuchos_copia[0];
+                sizeCartuchos_copia[0] = aux;
+                resultados[i] = pd(K_copia, N_copia, &sizeCartuchos_copia, &duracaoMusicas_copia);
+            }
+
+            if (i == 4){
+                // faz a combinacao CAB
+                int aux, aux2;
+                aux = sizeCartuchos_copia[1];
+                aux2 = sizeCartuchos_copia[2];
+                sizeCartuchos_copia[1] = sizeCartuchos_copia[0];
+                sizeCartuchos_copia[2] = aux;
+                sizeCartuchos_copia[0] = aux2;
+                resultados[i] = pd(K_copia, N_copia, &sizeCartuchos_copia, &duracaoMusicas_copia);
+            }
+
+            if (i == 5){
+                // faz a combinacao CBA
+                int aux, aux2;
+                aux = sizeCartuchos_copia[0];
+                aux2 = sizeCartuchos_copia[2];
+                sizeCartuchos_copia[2] = aux;
+                sizeCartuchos_copia[0] = aux2;
+                resultados[i] = pd(K_copia, N_copia, &sizeCartuchos_copia, &duracaoMusicas_copia);
+            }
         }
+
         int aux=0;
         for (int i=0; i<6; i++){
             if (resultados[i] > aux){
