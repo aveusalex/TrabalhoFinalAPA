@@ -4,7 +4,7 @@
 #define MAX 105
 
 // função para remover as músicas que já foram inseridas no cartucho que acabou de rodar.
-void removeMusicas(int (*musComponentes)[50], int (*duracaoMusicas)[MAX], int N, int (*NcadaCartucho)[3], int cart){
+void removeMusicas(int (*musComponentes)[55], int (*duracaoMusicas)[MAX], int N, int (*NcadaCartucho)[3], int cart){
     int abandonaLaco = 0;  // Essa variável é para saber qual valor
 
     // estipular a quantidade de musicas que pertencem a musComponentes.
@@ -37,7 +37,7 @@ void removeMusicas(int (*musComponentes)[50], int (*duracaoMusicas)[MAX], int N,
 }
 
 // função para verificar quais musicas compõem o cartucho.
-void verificaCartucho(int tabela_PD[3][MAX][55], int (*musicasComponentes)[50], int sizeCartucho, int (* NcadaCartucho)[3], int cartucho, int (* duracaoMus)[MAX]){
+void verificaCartucho(int tabela_PD[3][MAX][55], int (*musicasComponentes)[55], int sizeCartucho, int (* NcadaCartucho)[3], int cartucho, int (* duracaoMus)[MAX]){
     int aux, counter = 0, negativo = -1;
 
     for (int i = (*NcadaCartucho)[cartucho]; i > 0; i--){
@@ -56,13 +56,13 @@ int pd(int K, int N, int (*sizeCartuchos)[3], int (*duracaoMusicas)[MAX]) {
     int j, resultado = 0;  // declarando o índice j (coluna) da tabela.
 
     // arrays
-    int musicasComponentes[50];
+    int musicasComponentes[55];
     int tabela_PD[3][MAX][55];  // Cria uma tabela genérica de tamanho máximo baseado no valor máximo das entradas.
     int NcadaCartucho[] = {0, 0, 0};  // Cada cartucho terá um numero de musicas diferente para levar em consideracao na tabela.
 
     // ponteiros para arrays
     int (*ptr_duracaoMusicas)[MAX] = duracaoMusicas;
-    int (*ptr_musicasComponentes)[50] = &musicasComponentes;
+    int (*ptr_musicasComponentes)[55] = &musicasComponentes;
     int (*ptr_NcadaCartucho)[3] = &NcadaCartucho;
 
     // já colocar a quantidade de musicas disponiveis para o primeiro cartucho
@@ -166,7 +166,7 @@ int main(){
 
     if (K == 1){
         resultados[0] = pd(K, N, &sizeCartuchos, &duracaoMusicas);
-        printf("%d", resultados[0]);
+        printf("%d\n", resultados[0]);
         return 0;
     }
 
@@ -264,7 +264,7 @@ int main(){
             }
         }
 
-        printf("%d", aux);
+        printf("%d\n", aux);
         return 0;
     }
 }
